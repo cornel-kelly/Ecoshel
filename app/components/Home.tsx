@@ -1083,7 +1083,7 @@ export default function Home({
           {/* Dynamic Hero & Contextual Search Unit */}
           <section className="relative w-full bg-surface-container-low overflow-hidden pb-space-2xl">
             {/* Architectural decorative background mesh */}
-            <div className="absolute inset-0 opacity-40 pointer-events-none">
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
               <svg
                 className="w-full h-full text-secondary-fixed/30"
                 height="100%"
@@ -1114,15 +1114,20 @@ export default function Home({
             <div className="absolute top-1/2 -left-20 w-80 h-80 rounded-full bg-secondary-container/30 blur-2xl pointer-events-none"></div>
 
             {/* Real architectural photo used as a masked contextual backdrop */}
-            <div className="absolute inset-y-0 right-0 w-full md:w-[58%] pointer-events-none select-none">
+            <div className="absolute inset-0 w-full pointer-events-none select-none">
               <img
                 aria-hidden="true"
                 alt=""
-                className="h-full w-full object-cover object-center opacity-30 md:opacity-45"
+                className="h-full w-full object-cover object-center opacity-60 md:opacity-75"
                 src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=85"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, black 28%, black 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, black 28%, black 100%)",
+                }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-surface-container-low via-surface-container-low/75 to-surface-container-low/20" />
-              <div className="absolute inset-0 bg-surface-container-low/20" />
+              <div className="absolute inset-0 bg-gradient-to-r from-surface-container-low/75 via-surface-container-low/25 to-transparent" />
             </div>
 
             <div className="relative max-w-7xl mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop pt-space-xl">

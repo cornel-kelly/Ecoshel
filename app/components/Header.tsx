@@ -70,7 +70,7 @@ export default function Header({
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/30 transition-all">
+    <header className="fixed top-0 inset-x-0 z-50 glass-panel bg-surface-container-lowest/65 backdrop-blur-xl shadow-[0_10px_35px_rgba(8,15,32,0.18)] border-b border-white/10 transition-all">
       <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
         {/* Brand & Desktop Navigation */}
         <div className="flex items-center gap-6 lg:gap-8">
@@ -188,7 +188,7 @@ export default function Header({
                   ? "Switch to light mode"
                   : "Switch to dark mode"
             }
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
             onClick={() => setIsDarkMode((current) => !current)}
           >
             <span className="material-symbols-outlined text-[1.25rem]">
