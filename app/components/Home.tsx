@@ -1137,7 +1137,7 @@ export default function Home({
                   </span>
                 </div>
                 <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight">
-                  Find verified rental homes across Accra.{" "}
+                  Find verified rental homes across Ghana.{" "}
                   <span className="text-primary">No sales, no runarounds.</span>
                 </h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
