@@ -1153,7 +1153,7 @@ export default function Home({
               </div>
 
               {/* Multi-Layer Search Filter Deck */}
-              <div className="bg-surface-container-lowest rounded-xl shadow-xl p-space-md md:p-space-lg flex flex-col gap-space-md">
+              <div className="bg-surface-container-lowest/55 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl p-space-md md:p-space-lg flex flex-col gap-space-md">
                 <div className="flex flex-col gap-space-xs">
                   <label
                     className="font-label-sm text-label-sm text-on-surface flex items-center gap-1"
@@ -1170,7 +1170,7 @@ export default function Home({
                     </span>
                     <input
                       aria-label="Search by location"
-                      className="w-full h-11 pl-10 pr-10 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container-high transition-colors"
+                      className="w-full h-11 pl-10 pr-10 bg-surface-container-low/55 backdrop-blur-md border border-white/10 rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container-high/60 transition-colors"
                       id="location-search"
                       placeholder="Search East Legon, Osu, Airport Residential..."
                       type="text"
@@ -1202,7 +1202,7 @@ export default function Home({
                       </span>
                       Neighborhood in Accra
                     </label>
-                    <div className="relative bg-surface-container-low rounded-lg">
+                    <div className="relative bg-surface-container-low/55 backdrop-blur-md border border-white/10 rounded-lg">
                       <select
                         className="w-full h-11 bg-transparent px-space-sm font-body-md text-on-surface focus:outline-none focus:bg-surface-container-high rounded-lg cursor-pointer appearance-none"
                         value={selectedLocation}
@@ -1234,7 +1234,7 @@ export default function Home({
                       </span>
                       Rental Type
                     </label>
-                    <div className="relative bg-surface-container-low rounded-lg">
+                    <div className="relative bg-surface-container-low/55 backdrop-blur-md border border-white/10 rounded-lg">
                       <select
                         className="w-full h-11 bg-transparent px-space-sm font-body-md text-on-surface focus:outline-none focus:bg-surface-container-high rounded-lg cursor-pointer appearance-none"
                         value={selectedType}
@@ -1293,7 +1293,7 @@ export default function Home({
                         Max GH₵ {maxPrice.toLocaleString()}
                       </span>
                     </div>
-                    <div className="h-11 bg-surface-container-low px-space-sm rounded-lg flex items-center">
+                    <div className="h-11 bg-surface-container-low/55 backdrop-blur-md border border-white/10 px-space-sm rounded-lg flex items-center">
                       <input
                         className="w-full accent-primary cursor-pointer"
                         max={18000}
