@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Header, { UserRole } from "./Header";
 import Footer from "./Footer";
 import MobileNav from "./MobileNav";
@@ -1004,6 +1004,32 @@ export default function Home({
   const [likedListings, setLikedListings] = useState<Set<string>>(new Set());
   const [visibleListingCount, setVisibleListingCount] =
     useState(LISTINGS_PER_PAGE);
+  const [showCompactSearch, setShowCompactSearch] = useState(false);
+
+  useEffect(() => {
+    const updateCompactSearchVisibility = () => {
+      const locationInput = document.getElementById("location-search");
+      if (!locationInput) return;
+
+      const nextVisibility = locationInput.getBoundingClientRect().bottom <= 64;
+      setShowCompactSearch((currentVisibility) =>
+        currentVisibility === nextVisibility
+          ? currentVisibility
+          : nextVisibility,
+      );
+    };
+
+    updateCompactSearchVisibility();
+    window.addEventListener("scroll", updateCompactSearchVisibility, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateCompactSearchVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", updateCompactSearchVisibility);
+      window.removeEventListener("resize", updateCompactSearchVisibility);
+    };
+  }, []);
 
   const toggleTag = (tag: string) => {
     setActiveTags((prev) => {
@@ -1075,10 +1101,19 @@ export default function Home({
         activePath="find-a-rental"
         isAuthenticated={isAuthenticated}
         userRole={userRole}
+        showCompactSearch={showCompactSearch}
+        locationSearch={locationSearch}
+        onLocationSearchChange={setLocationSearch}
+        onOpenFilters={() => {
+          document.getElementById("rental-filters")?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }}
         onNavigate={onNavigate}
       />
 
-      <main className="flex-1 w-full pt-16 bg-surface">
+      <main className="flex-1 w-full bg-surface">
         <div className="flex flex-col w-full">
           {/* Dynamic Hero & Contextual Search Unit */}
           <section className="relative w-full bg-surface-container-low overflow-hidden pb-space-2xl">
@@ -1130,7 +1165,7 @@ export default function Home({
               <div className="absolute inset-0 bg-gradient-to-r from-surface-container-low/75 via-surface-container-low/25 to-transparent" />
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop pt-space-xl">
+            <div className="relative max-w-7xl mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop pt-24">
               {/* Editorial Header Content */}
               <div className="max-w-3xl flex flex-col gap-space-sm mb-space-xl">
                 <div className="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
@@ -1153,7 +1188,10 @@ export default function Home({
               </div>
 
               {/* Multi-Layer Search Filter Deck */}
-              <div className="bg-surface-container-lowest/55 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl p-space-md md:p-space-lg flex flex-col gap-space-md">
+              <div
+                id="rental-filters"
+                className="bg-surface-container-lowest/55 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl p-space-md md:p-space-lg flex flex-col gap-space-md"
+              >
                 <div className="flex flex-col gap-space-xs">
                   <label
                     className="font-label-sm text-label-sm text-on-surface flex items-center gap-1"

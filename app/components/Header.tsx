@@ -6,6 +6,10 @@ export interface HeaderProps {
   activePath?: string;
   isAuthenticated?: boolean;
   userRole?: UserRole;
+  showCompactSearch?: boolean;
+  locationSearch?: string;
+  onLocationSearchChange?: (value: string) => void;
+  onOpenFilters?: () => void;
   onSignOut?: () => void;
   onNavigate?: (path: string) => void;
 }
@@ -17,6 +21,10 @@ export default function Header({
   isAuthenticated = false,
   onSignOut,
   onNavigate,
+  showCompactSearch = false,
+  locationSearch = "",
+  onLocationSearchChange,
+  onOpenFilters,
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -70,7 +78,7 @@ export default function Header({
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 glass-panel bg-surface-container-lowest/65 backdrop-blur-xl shadow-[0_10px_35px_rgba(8,15,32,0.18)] border-b border-white/10 transition-all">
+    <header className="fixed top-0 inset-x-0 z-50 glass-panel bg-surface-container-lowest/40 backdrop-blur-xl shadow-[0_10px_35px_rgba(8,15,32,0.18)] border-b border-white/10 transition-all">
       <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
         {/* Brand & Desktop Navigation */}
         <div className="flex items-center gap-6 lg:gap-8">
@@ -119,7 +127,7 @@ export default function Header({
 
           {/* Desktop Nav Links */}
           <nav
-            className="hidden md:flex items-center gap-1 lg:gap-2"
+            className="hidden md:flex shrink-0 items-center gap-1 lg:gap-2 whitespace-nowrap"
             aria-label="Main Navigation"
           >
             <a
@@ -168,10 +176,37 @@ export default function Header({
               )}
             </a>
           </nav>
+
+          {showCompactSearch && (
+            <div className="hidden md:flex shrink-0 items-center gap-1 rounded-lg bg-surface-container-low/70 border border-white/10 pl-3 pr-1 h-10 w-40 lg:w-48">
+              <span className="material-symbols-outlined text-[1.125rem] text-primary">
+                search
+              </span>
+              <input
+                aria-label="Search by location"
+                className="min-w-0 flex-1 bg-transparent text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none"
+                placeholder="Search by location"
+                type="text"
+                value={locationSearch}
+                onChange={(e) => onLocationSearchChange?.(e.target.value)}
+              />
+              <button
+                type="button"
+                aria-label="Open rental filters"
+                title="Open rental filters"
+                className="inline-flex h-8 w-8 shrink-0 items-center justify-center text-on-surface-variant transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
+                onClick={onOpenFilters}
+              >
+                <span className="material-symbols-outlined text-[1.125rem]">
+                  tune
+                </span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Right CTA Actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <button
             type="button"
             aria-label={
@@ -188,7 +223,7 @@ export default function Header({
                   ? "Switch to light mode"
                   : "Switch to dark mode"
             }
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
+            className="inline-flex h-9 w-9 items-center justify-center text-on-surface-variant transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
             onClick={() => setIsDarkMode((current) => !current)}
           >
             <span className="material-symbols-outlined text-[1.25rem]">
@@ -203,7 +238,7 @@ export default function Header({
           {/* Log in link */}
           {!isAuthenticated && (
             <a
-              className="hidden sm:inline-flex font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2.5 py-1.5 rounded-lg cursor-pointer font-medium"
+              className="hidden sm:inline-flex whitespace-nowrap font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2.5 py-1.5 rounded-lg cursor-pointer font-medium"
               data-path="login"
               href="#"
               onClick={(e) => handleLinkClick(e, "login")}
