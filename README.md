@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ecoshel frontend
 
-## Getting Started
+Ecoshel is a Next.js 16 App Router frontend for direct, verified property rentals in Accra. This scaffold follows the target architecture in the original project README: route-based pages, feature modules, reusable layouts, and an async mock service layer that can later be replaced with a backend.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 and React 19
+- TypeScript with strict checking
+- Tailwind CSS v4
+- Leaflet dependencies retained for future map-based listing input
+
+## Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Routes
 
-To learn more about Next.js, take a look at the following resources:
+- `/` - searchable rental marketplace
+- `/properties/[id]` - property detail
+- `/login` - login and role selection placeholder
+- `/listings/new` - listing form placeholder
+- `/dashboard` - owner dashboard placeholder
+- `/settings` - profile settings placeholder
+- unknown routes - global 404 page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The `app/` directory contains route composition only. Reusable UI is in `src/components`, domain-specific UI is in `src/features`, and all mock data is in `src/mocks`. Pages call async functions in `src/services`; components never import mock data directly.
 
-## Deploy on Vercel
+Read the detailed guides:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Architecture](./docs/ARCHITECTURE.md)
+- [Backend integration](./docs/BACKEND_INTEGRATION.md)
+- [Contributing](./docs/CONTRIBUTING.md)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Current boundaries
+
+Authentication, authorization, persistence, API calls, and server business rules are intentionally not implemented. Dashboard and listing routes contain frontend-only guard placeholders and should be connected to a real session boundary before production.
